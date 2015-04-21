@@ -1,0 +1,86 @@
+" Ack
+let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+
+" NerdTree
+let g:NERDShutUp=1
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+let NERDTreeChDirMode=0
+let NERDTreeQuitOnOpen=1
+let NERDTreeMouseMode=2
+let NERDTreeShowHidden=1
+let NERDTreeKeepTreeInNewTab=1
+let g:nerdtree_tabs_open_on_gui_startup=0
+
+" MatchIt
+let b:match_ignorecase = 1
+
+" Ctags
+set tags=./tags;/,~/.vimtags
+" Make tags placed in .git/tags file available in all levels of a repository
+let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
+if gitroot != ''
+    let &tags = &tags . ',' . gitroot . '/.git/tags'
+endif
+
+" CtrlP
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+
+if executable('ag')
+    let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+else
+    let s:ctrlp_fallback = 'find %s -type f'
+endif
+
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+    \ 'fallback': s:ctrlp_fallback
+\ }
+
+" UndoTree
+nnoremap <Leader>u :UndotreeToggle<CR>
+let g:undotree_SetFocusWhenToggle=1
+
+
+" Wildfire
+let g:wildfire_fuel_map = "<Leader><ENTER>"
+let g:wildfire_water_map = "<Leader><BS>"
+let g:wildfire_objects = {
+    \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
+    \ "html,xml" : ["at"],
+    \ }
+
+" vim-airline
+let g:airline_theme = 'solarized'
+let g:airline_left_sep='›'  " Slightly fancier than '>'
+let g:airline_right_sep='‹' " Slightly fancier than '<'
+
+ " Syntastic (with fix for virtual env)
+let g:syntastic_python_pylint_exec='~/bin/pylint.sh'
+let g:syntastic_always_populate_loc_list = 1
+autocmd FileType python let b:syntastic_checkers = ['python', 'pylint']
+autocmd BufNewFile,BufRead *.jsx let b:syntastic_checkers = ['jsxhint']
+
+" python mode (disable bullshits)
+let g:pymode_breakpoint = 0
+let g:pymode_run = 0
+let g:pymode_doc = 0
+let g:pymode_folding = 0
+let g:pymode_rope = 0
+let g:pymode_trim_whitespaces = 0
+let g:pymode_lint = 0
+let g:pymode_indent = 0
+let g:pymode_options = 0
+let g:pymode_options_max_line_length = 99
+autocmd FileType python setlocal indentexpr=pymode#indent#get_indent(v:lnum)
+autocmd FileType python setlocal indentkeys=!^F,o,O,<:>,0),0],0},=elif,=except
+
+" Easy Motion
+let g:EasyMotion_smartcase = 1
+

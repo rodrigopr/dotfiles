@@ -1,0 +1,63 @@
+" http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
+" Restore cursor to file position in previous editing session
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
+function! StripTrailingWhitespace()
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " do the business:
+  %s/\s\+$//e
+  " clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
+function! ToggleErrors()
+  let old_last_winnr = winnr('$')
+  lclose
+  if old_last_winnr == winnr('$')
+    " Nothing was closed, open syntastic error location panel
+    Errors
+  endif
+endfunction
+
+function! InitializeDirectories()
+  let parent = $HOME
+  let prefix = 'vim'
+  let dir_list = {
+        \ 'backup': 'backupdir',
+        \ 'views': 'viewdir',
+        \ 'swap': 'directory' }
+
+  let common_dir = parent . '/.' . prefix
+
+  for [dirname, settingname] in items(dir_list)
+    let directory = common_dir . dirname . '/'
+    if exists("*mkdir")
+      if !isdirectory(directory)
+        call mkdir(directory)
+      endif
+    endif
+    if !isdirectory(directory)
+      echo "Warning: Unable to create backup directory: " . directory
+      echo "Try: mkdir -p " . directory
+    else
+      let directory = substitute(directory, " ", "\\\\ ", "g")
+      exec "set " . settingname . "=" . directory
+    endif
+  endfor
+endfunction
+call InitializeDirectories()
+

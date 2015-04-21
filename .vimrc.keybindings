@@ -1,0 +1,82 @@
+let mapleader = ','
+let maplocalleader = '_'
+
+" command line with over support
+nmap ; :
+nmap <silent><C-;> :OverCommandLine<CR>
+
+" Escape with jj
+imap jj <Esc>
+
+" remove search highlight
+map <C-f> :noh<CR>
+
+" context based selection
+imap <C-w> <C-o><C-w>
+
+" Easy Motion
+map  \ <Plug>(easymotion-sn)
+omap \ <Plug>(easymotion-tn)
+nmap s <Plug>(easymotion-s2)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
+" wildfire quick selection
+nmap <Leader>w <Plug>(wildfire-quick-select)
+
+" Python Tmux nosetests
+nmap <F5> :RunFocusedNoseTests<CR>
+nmap <F6> :RunCurrentNoseTests<CR>
+
+" deal with vimux pane
+map <Leader>rq :VimuxCloseRunner<CR>
+map <Leader>ri :VimuxInspectRunner<CR>
+map <Leader>rz :VimuxZoomRunner<CR>
+
+" cycle loc list (erros)
+nmap <F3> :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>lfirst<bar>endtry<cr>
+" toggle error pannel
+nmap <silent> <C-e> :<C-u>call ToggleErrors()<CR>
+" disable syntastic
+nmap <F7> :SyntasticToggleMode<CR>
+
+" search for string in all files
+nmap <leader>a :Ack<space>
+
+" search in buffer
+nmap <leader>b :CtrlPBuffer<CR>
+" search files (fuzzy)
+nmap <leader>t :CtrlP<CR>
+
+" toggle nerd tree
+nmap <leader>f :NERDTreeToggle %<CR>
+
+" toggle git gutter info
+nmap <leader>g :GitGutterToggle<CR>
+
+" clear whitespaces
+nmap <Leader>ds :call StripTrailingWhitespace()<CR>
+
+" Wrapped lines goes down/up to next row, rather than next line in file.
+noremap j gj
+noremap k gk
+
+" Stupid shift key fixes
+command! -bang -nargs=* -complete=file W w<bang> <args>
+command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+command! -bang Q q<bang>
+
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+nnoremap Y y$
+
+" Find merge conflict markers
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+
+" Visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
+" For when you forget to sudo.. Really Write the file.
+cmap w!! w !sudo tee % >/dev/null
+

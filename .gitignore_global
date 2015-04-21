@@ -1,0 +1,7 @@
+.idea
+.env
+.env-python
+*.iml
+osxenv
+*.sublime-project
+*.sublime-workspace
