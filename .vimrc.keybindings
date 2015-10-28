@@ -52,7 +52,7 @@ nmap <leader>t :CtrlP<CR>
 nmap <leader>f :NERDTreeToggle %<CR>
 
 " toggle git gutter info
-nmap <leader>g :GitGutterToggle<CR>
+nmap <leader>g :GITDiff<CR>
 
 " clear whitespaces
 nmap <Leader>ds :call StripTrailingWhitespace()<CR>
