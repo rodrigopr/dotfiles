@@ -65,7 +65,10 @@ let g:airline_right_sep='‹' " Slightly fancier than '<'
 let g:syntastic_python_pylint_exec='~/bin/pylint.sh'
 let g:syntastic_always_populate_loc_list = 1
 autocmd FileType python let b:syntastic_checkers = ['python', 'pylint']
-autocmd BufNewFile,BufRead *.jsx let b:syntastic_checkers = ['jsxhint']
+autocmd BufNewFile,BufRead *.jsx let b:syntastic_checkers = ['eslint']
+autocmd BufNewFile,BufRead *.js let b:syntastic_checkers = ['eslint']
+autocmd BufNewFile,BufRead *.scala let b:syntastic_checkers = ['']
+autocmd BufNewFile,BufRead *.java let b:syntastic_checkers = ['']
 
 " python mode (disable bullshits)
 let g:pymode_breakpoint = 0
