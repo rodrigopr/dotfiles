@@ -28,7 +28,7 @@ set winminheight=10
 set winheight=9999
 
 " Vertical line at 80 characters
-set textwidth=99
+set textwidth=80
 set cc=90
 highlight ColorColumn ctermbg=8
 highlight ColorColumn guibg=gray30
@@ -54,7 +54,8 @@ set statusline+=%=%-14.(%l,%c%V%)\ %p%%    " Right aligned file nav info
 
 filetype plugin indent on     " Automatically detect file types.
 syntax on                     " Syntax highlighting
-set mouse=a                   " Automatically enable mouse usage
+set mouse+=a                  " Automatically enable mouse usage
+set ttymouse=xterm2           " To enable mouse operations inside tmux
 set mousehide                 " Hide the mouse cursor while typing
 scriptencoding utf-8
 set encoding=utf-8
