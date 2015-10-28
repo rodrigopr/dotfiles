@@ -4,8 +4,7 @@ set shell=/bin/sh
 source ~/.vimrc.bundles
 
 " Vim UI
-set background=dark         " Assume a dark background
-colorscheme Monokai-chris
+colorscheme distinguished
 
 " Formatting
 set nowrap                        " Do not wrap long lines
