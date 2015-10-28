@@ -42,6 +42,7 @@ Bundle 'osyo-manga/vim-over'
 Bundle 'gcmt/wildfire.vim'
 "Bundle 'bkad/CamelCaseMotion'
 Bundle 'benmills/vimux'
+Bundle 'tpope/vim-repeat'
 Bundle 'vim-scripts/gitdiff.vim'
 
 " General programming
