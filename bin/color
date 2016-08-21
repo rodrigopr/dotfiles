@@ -1,0 +1,49 @@
+#!/bin/sh
+
+#
+# Change iterm/vim color using base16 themes
+#
+
+BASE16_DIR=~/.config/base16-shell
+BASE16_CONFIG=~/.vim/.base16
+
+BACKGROUND="$1"
+SCHEME="$2"
+
+if [ $# -eq 0 -a -s "$BASE16_CONFIG" ]; then
+  cat ~/.vim/.base16
+  exit
+fi
+
+if [[ "$SCHEME" = 'help' ]]; then
+  BACKGROUND='help'
+fi
+
+case "$BACKGROUND" in
+dark|light)
+  FILE="$BASE16_DIR/base16-$SCHEME.$BACKGROUND.sh"
+  if [[ -x "$FILE" ]]; then
+    echo "$SCHEME $BACKGROUND !!!"
+    echo "$SCHEME" > "$BASE16_CONFIG"
+    echo "$BACKGROUND" >> "$BASE16_CONFIG"
+    "$FILE"
+  else
+    echo "Scheme '$SCHEME' not found in $BASE16_DIR"
+    exit 1
+  fi
+  ;;
+help)
+  echo 'color dark [tomorrow|ocean|grayscale|ashes|default|railscasts|twilight|...]'
+  echo 'color light [grayscale|harmonic16|ocean|tomorrow|twilight|...]'
+  echo
+  echo 'Available schemes:'
+  find ~/.config/base16-shell -name 'base16-*.sh' | \
+    sed -E 's|.+/base16-||' | \
+    sed -E 's/\.(dark|light)\.sh/ (\1)/' | \
+    column
+    ;;
+
+*)
+  echo 'Unknown subcommand: use one of {dark,light,help}'
+  ;;
+esac
