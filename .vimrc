@@ -4,7 +4,10 @@ set shell=/bin/sh
 source ~/.vimrc.bundles
 
 " Vim UI
-colorscheme distinguished
+"colorscheme Monokai-chris
+"set background=dark          " Assume a dark background
+"set background=light         " go back to light
+"colorscheme distinguished
 
 " Formatting
 set nowrap                        " Do not wrap long lines
@@ -72,7 +75,6 @@ set wildmode=list:longest,full    " Command <Tab> completion, list matches, then
 set whichwrap=b,s,h,l,<,>,[,]     " Backspace and cursor keys wrap too
 set scrolljump=5                  " Lines to scroll when cursor leaves screen
 set scrolloff=3                   " Minimum lines to keep above and below cursor
-set nofoldenable                  " no fold bullshit
 set nospell                       " disable spell check
 set nohidden                      " disable switch buffer without saving
 set relativenumber                " use relative line instead of absolute
@@ -87,6 +89,12 @@ set iskeyword-=#                  " '#' is an end of word designator
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
 set list
 set listchars=tab:▸\ ,trail:▫,nbsp:×,precedes:×,extends:#,nbsp:. " Highlight problematic whitespace
+
+" Folding config
+set foldmethod=indent             " not as cool as syntax, but faster
+set foldlevelstart=1              " start unfolded
+highlight Folded ctermbg=234
+highlight Folded ctermfg=black
 
 " Instead of reverting the cursor to the last position in the buffer, we
 " set it to the first line when editing a git commit message

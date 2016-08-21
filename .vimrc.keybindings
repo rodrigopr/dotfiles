@@ -1,6 +1,9 @@
 let mapleader = ','
 let maplocalleader = '_'
 
+" Ignore F1
+map <F1> :noh<CR>
+
 " command line with over support
 nmap ; :
 nmap <silent><C-;> :OverCommandLine<CR>
@@ -11,22 +14,36 @@ imap jj <Esc>
 " remove search highlight
 map <C-f> :noh<CR>
 
+" Folding
+map <silent> <TAB> @=((foldclosed('.') > 0)?'zO':'zazO')<CR>
+map <silent> <S-Z> za
+map <silent> <S-X> zX
+map <silent> z1 :set foldlevel=1<CR>
+map <silent> z2 :set foldlevel=2<CR>
+map <silent> z3 :set foldlevel=3<CR>
+map <silent> z0 :set foldlevel=0<CR>
+
 " context based selection
 imap <C-w> <C-o><C-w>
 
+" omni complete
+imap <C-j> <C-X><C-O><C-P>
+
 " Easy Motion
-map  \ <Plug>(easymotion-sn)
-omap \ <Plug>(easymotion-tn)
-nmap s <Plug>(easymotion-s2)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+nmap s <Plug>(easymotion-s)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
 
 " wildfire quick selection
 nmap <Leader>w <Plug>(wildfire-quick-select)
 
 " Python Tmux nosetests
-nmap <F5> :RunFocusedNoseTests<CR>
-nmap <F6> :RunCurrentNoseTests<CR>
+nmap <F5> :RunNoseTestFocused<CR>
+nmap <F6> :RunAllNoseTests<CR>
 
 " deal with vimux pane
 map <Leader>rq :VimuxCloseRunner<CR>
@@ -57,6 +74,9 @@ nmap <leader>g :GITDiff<CR>
 " clear whitespaces
 nmap <Leader>ds :call StripTrailingWhitespace()<CR>
 
+nmap <silent> <leader>dd <Plug>DashSearch
+nmap <leader>d<space> :Dash<space>
+
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap j gj
 noremap k gk
@@ -80,3 +100,13 @@ vnoremap > >gv
 " For when you forget to sudo.. Really Write the file.
 cmap w!! w !sudo tee % >/dev/null
 
+" Vim Projectionist
+nnoremap <Leader>gt :Etest<SPACE>
+nnoremap <Leader>gc :Esource<SPACE>
+nnoremap <Leader>gs :Estyle style<CR>
+nnoremap <silent> <Leader>ga :A<CR>
+
+" Camelcase moviments
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> E <Plug>CamelCaseMotion_b
+map <silent> ge <Plug>CamelCaseMotion_ge

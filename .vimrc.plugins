@@ -3,7 +3,8 @@ let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
 
 " NerdTree
 let g:NERDShutUp=1
-let NERDTreeShowBookmarks=1
+let NERDTreeMinimalUI=1
+let NERDTreeShowBookmarks=0
 let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
 let NERDTreeChDirMode=0
 let NERDTreeQuitOnOpen=1
@@ -57,16 +58,22 @@ let g:wildfire_objects = {
     \ }
 
 " vim-airline
-let g:airline_theme = 'solarized'
+" let g:airline_theme = 'solarized'
 let g:airline_left_sep='›'  " Slightly fancier than '>'
 let g:airline_right_sep='‹' " Slightly fancier than '<'
+let g:airline_theme='solarized'
 
- " Syntastic (with fix for virtual env)
+" vim-flow
+let g:flow#enable = 0
+
+" Syntastic (with fix for virtual env)
 let g:syntastic_python_pylint_exec='~/bin/pylint.sh'
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:syntastic_javascript_eslint_args = '--parser=babel-eslint'
 let g:syntastic_always_populate_loc_list = 1
 autocmd FileType python let b:syntastic_checkers = ['python', 'pylint']
-autocmd BufNewFile,BufRead *.jsx let b:syntastic_checkers = ['eslint']
-autocmd BufNewFile,BufRead *.js let b:syntastic_checkers = ['eslint']
+autocmd BufNewFile,BufRead *.jsx let b:syntastic_checkers = ['eslint', 'flow']
+autocmd BufNewFile,BufRead *.js let b:syntastic_checkers = ['eslint', 'flow']
 autocmd BufNewFile,BufRead *.scala let b:syntastic_checkers = ['']
 autocmd BufNewFile,BufRead *.java let b:syntastic_checkers = ['']
 
@@ -86,4 +93,34 @@ autocmd FileType python setlocal indentkeys=!^F,o,O,<:>,0),0],0},=elif,=except
 
 " Easy Motion
 let g:EasyMotion_smartcase = 1
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
+let g:EasyMotion_skipfoldedline = 0
+
+
+" vimux
+let g:VimuxOrientation = "h"
+
+
+" Projectionist
+let g:projectionist_heuristics = {
+      \   '*': {
+      \     '**/tests/*.js': {
+      \       'alternate': ['{dirname}/{basename}.js', '{dirname}/{basename}.jsx'],
+      \       'type': 'test'
+      \     },
+      \     '*.js': {
+      \       'alternate': '{dirname}/tests/{basename}.js',
+      \       'type': 'source'
+      \     },
+      \     '*.jsx': {
+      \       'alternate': '{dirname}/tests/{basename}.js',
+      \       'type': 'source'
+      \     },
+      \     '**/style.scss': {
+      \       'alternate': '{dirname}/index.jsx',
+      \       'type': 'style'
+      \     }
+      \   }
+      \ }
 
